@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Gallery</title>
+  
+  <style>
+    /* CSS STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    /* Grid Layout for Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Card Styling */
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+
+    .product-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* Lightbox Modal Styling */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 75%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox-caption {
+      color: #fff;
+      margin-top: 15px;
+      font-size: 18px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 35px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Product Gallery</h1>
+
+  <!-- Product Gallery Grid (25 Items) -->
+  <div class="gallery-grid">
+
+    <!-- 1. Aachi Mutton Masala -->
+    <div class="product-card" onclick="openLightbox('aachi_mutton_masala.webp', 'Aachi Mutton Masala (100g)')">
+      <img src="aachi_mutton_masala.webp" alt="Aachi Mutton Masala">
+      <div class="product-title">Aachi Mutton Masala (100g)</div>
+    </div>
+
+    <!-- 2. Aachi Chicken Masala -->
+    <div class="product-card" onclick="openLightbox('aachi_chicken_masala.webp', 'Aachi Chicken Masala')">
+      <img src="aachi_chicken_masala.webp" alt="Aachi Chicken Masala">
+      <div class="product-title">Aachi Chicken Masala</div>
+    </div>
+
+    <!-- 3. Aashirvaad Iodized Salt -->
+    <div class="product-card" onclick="openLightbox('aashirvaad_iodized_salt.png', 'Aashirvaad Iodized Salt')">
+      <img src="aashirvaad_iodized_salt.png" alt="Aashirvaad Iodized Salt">
+      <div class="product-title">Aashirvaad Iodized Salt</div>
+    </div>
+
+    <!-- 4. Kottha's Avakaya Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_avakaya_pickle.jpg', 'Kottha\'s Avakaya Pickle (200g)')">
+      <img src="kotthas_avakaya_pickle.jpg" alt="Kottha's Avakaya Pickle">
+      <div class="product-title">Kottha's Avakaya Pickle (200g)</div>
+    </div>
+
+    <!-- 5. Kottha's Coriander Leaves Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_coriander_leaves_pickle.jpg', 'Kottha\'s Coriander Leaves Pickle (200g)')">
+      <img src="kotthas_coriander_leaves_pickle.jpg" alt="Kottha's Coriander Leaves Pickle">
+      <div class="product-title">Kottha's Coriander Leaves Pickle</div>
+    </div>
+
+    <!-- 6. Kottha's Green Tamarind Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_green_tamarind_pickle.jpg', 'Kottha\'s Green Tamarind Pickle (200g)')">
+      <img src="kotthas_green_tamarind_pickle.jpg" alt="Kottha's Green Tamarind Pickle">
+      <div class="product-title">Kottha's Green Tamarind Pickle</div>
+    </div>
+
+    <!-- 7. Kottha's Mango Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_mango_pickle.jpg', 'Kottha\'s Mango Pickle (200g)')">
+      <img src="kotthas_mango_pickle.jpg" alt="Kottha's Mango Pickle">
+      <div class="product-title">Kottha's Mango Pickle</div>
+    </div>
+
+    <!-- 8. Kottha's Mixed Vegetable Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_mixed_vegetable_pickle.jpg', 'Kottha\'s Mixed Vegetable Pickle (200g)')">
+      <img src="kotthas_mixed_vegetable_pickle.jpg" alt="Kottha's Mixed Vegetable Pickle">
+      <div class="product-title">Kottha's Mixed Veg Pickle</div>
+    </div>
+
+    <!-- 9. Kottha's Red Chillies Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_red_chillies_pickle.jpg', 'Kottha\'s Red Chillies Pickle (200g)')">
+      <img src="kotthas_red_chillies_pickle.jpg" alt="Kottha's Red Chillies Pickle">
+      <div class="product-title">Kottha's Red Chillies Pickle</div>
+    </div>
+
+    <!-- 10. Kottha's Tomato Pickle -->
+    <div class="product-card" onclick="openLightbox('kotthas_tomato_pickle.jpg', 'Kottha\'s Tomato Pickle (200g)')">
+      <img src="kotthas_tomato_pickle.jpg" alt="Kottha's Tomato Pickle">
+      <div class="product-title">Kottha's Tomato Pickle</div>
+    </div>
+
+    <!-- 11. Maggi Masala Noodles Multipack -->
+    <div class="product-card" onclick="openLightbox('maggi_masala_noodles_multipack.jpg', 'Maggi 2-Minute Masala Noodles Multipack')">
+      <img src="maggi_masala_noodles_multipack.jpg" alt="Maggi Masala Multipack">
+      <div class="product-title">Maggi Masala Noodles Pack</div>
+    </div>
+
+    <!-- 12. Maggi Masala Noodles Single -->
+    <div class="product-card" onclick="openLightbox('maggi_masala_noodles_single.jpg', 'Maggi 2-Minute Masala Noodles Single Pack')">
+      <img src="maggi_masala_noodles_single.jpg" alt="Maggi Masala Single Pack">
+      <div class="product-title">Maggi Masala Noodles Single</div>
+    </div>
+
+    <!-- 13. Maggi Veg Atta Noodles -->
+    <div class="product-card" onclick="openLightbox('maggi_masala_veg_atta_noodles.jpg', 'Maggi Nutri-Licious Veg Atta Noodles (72.5g)')">
+      <img src="maggi_masala_veg_atta_noodles.jpg" alt="Maggi Veg Atta Noodles">
+      <div class="product-title">Maggi Veg Atta Noodles</div>
+    </div>
+
+    <!-- 14. MTR Special Garam Masala 100g -->
+    <div class="product-card" onclick="openLightbox('mtr_special_garam_masala_100g.jpg', 'MTR Special Garam Masala (100g)')">
+      <img src="mtr_special_garam_masala_100g.jpg" alt="MTR Special Garam Masala 100g">
+      <div class="product-title">MTR Special Garam Masala (100g)</div>
+    </div>
+
+    <!-- 15. MTR Pulao Masala -->
+    <div class="product-card" onclick="openLightbox('mtr_pulao_masala.jpg', 'MTR Pulao Masala (100g)')">
+      <img src="mtr_pulao_masala.jpg" alt="MTR Pulao Masala">
+      <div class="product-title">MTR Pulao Masala (100g)</div>
+    </div>
+
+    <!-- 16. MTR Special Garam Masala 50g -->
+    <div class="product-card" onclick="openLightbox('mtr_special_garam_masala_50g.jpg', 'MTR Special Garam Masala (50g)')">
+      <img src="mtr_special_garam_masala_50g.jpg" alt="MTR Special Garam Masala 50g">
+      <div class="product-title">MTR Special Garam Masala (50g)</div>
+    </div>
+
+    <!-- 17. Parachute Aloe Vera Hair Oil -->
+    <div class="product-card" onclick="openLightbox('parachute_aloe_vera_hair_oil.webp', 'Parachute Advansed Aloe Vera Coconut Hair Oil')">
+      <img src="parachute_aloe_vera_hair_oil.webp" alt="Parachute Aloe Vera Oil">
+      <div class="product-title">Parachute Aloe Vera Oil</div>
+    </div>
+
+    <!-- 18. Parachute Coconut Oil 30ml Free -->
+    <div class="product-card" onclick="openLightbox('parachute_coconut_oil_30ml_free.webp', 'Parachute 100% Pure Coconut Oil (30ml Free Pack)')">
+      <img src="parachute_coconut_oil_30ml_free.webp" alt="Parachute Coconut Oil 30ml Free">
+      <div class="product-title">Parachute Oil (30ml Free)</div>
+    </div>
+
+    <!-- 19. Parachute Coconut Oil 600ml Bottle -->
+    <div class="product-card" onclick="openLightbox('parachute_coconut_oil_600ml_bottle.webp', 'Parachute 100% Pure Coconut Oil (600ml Bottle)')">
+      <img src="parachute_coconut_oil_600ml_bottle.webp" alt="Parachute Coconut Oil 600ml">
+      <div class="product-title">Parachute Coconut Oil (600ml)</div>
+    </div>
+
+    <!-- 20. Parachute Coconut Oil Super Saver -->
+    <div class="product-card" onclick="openLightbox('parachute_coconut_oil_600ml_super_saver.webp', 'Parachute 100% Pure Coconut Oil (Super Saver Pack)')">
+      <img src="parachute_coconut_oil_600ml_super_saver.webp" alt="Parachute Coconut Oil Super Saver">
+      <div class="product-title">Parachute Oil (Super Saver)</div>
+    </div>
+
+    <!-- 21. Screenshot Aashirvaad Salt -->
+    <div class="product-card" onclick="openLightbox('Screenshot_20261020-202504_Amazon.png', 'Aashirvaad Salt - Amazon Pack')">
+      <img src="Screenshot_20261020-202504_Amazon.png" alt="Aashirvaad Salt Amazon Screen">
+      <div class="product-title">Aashirvaad Salt Pack</div>
+    </div>
+
+    <!-- 22. Thums Up Bottle -->
+    <div class="product-card" onclick="openLightbox('thums_up_bottle.webp', 'Thums Up Soft Drink Bottle')">
+      <img src="thums_up_bottle.webp" alt="Thums Up Bottle">
+      <div class="product-title">Thums Up Bottle</div>
+    </div>
+
+    <!-- 23. Sunfeast Yippee Magic Masala Single -->
+    <div class="product-card" onclick="openLightbox('sunfeast_yippee_magic_masala_single.webp', 'Sunfeast Yippee! Magic Masala Single Pack')">
+      <img src="sunfeast_yippee_magic_masala_single.webp" alt="Sunfeast Yippee Single">
+      <div class="product-title">Sunfeast Yippee! Single</div>
+    </div>
+
+    <!-- 24. Sunfeast Yippee Magic Masala 6 in 1 -->
+    <div class="product-card" onclick="openLightbox('sunfeast_yippee_magic_masala_6in1.webp', 'Sunfeast Yippee! Magic Masala 6-in-1 Pack')">
+      <img src="sunfeast_yippee_magic_masala_6in1.webp" alt="Sunfeast Yippee 6 in 1">
+      <div class="product-title">Sunfeast Yippee! (6-in-1 Pack)</div>
+    </div>
+
+    <!-- 25. Parry's White Label Sugar -->
+    <div class="product-card" onclick="openLightbox('parrys_white_label_sugar.webp', 'Parry\'s White Label Sugar (Sulphur Free)')">
+      <img src="parrys_white_label_sugar.webp" alt="Parry's White Label Sugar">
+      <div class="product-title">Parry's White Label Sugar</div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-btn">&times;</span>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Zoomed Image">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <!-- JAVASCRIPT CODE -->
+  <script>
+    function openLightbox(imageSrc, titleText) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+
+      lightboxImg.src = imageSrc;
+      lightboxCaption.textContent = titleText;
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
