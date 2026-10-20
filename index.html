@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>J-Mart</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="top"><div class="logo"><span style="font-size:38px">🛒</span><div><b>J-Mart</b><small>Fresh Needs, Happy Homes</small></div></div>
+<nav><a onclick="goHome()"><span>🏠</span>Home</a><a onclick="openCart()"><span>🛒</span>Cart<i id="cc">0</i></a><a onclick="openLogin()"><span>👤</span><em id="lg">Login</em></a></nav></div>
+<label class="search"><input id="q" type="search" placeholder="Search for products..." autocomplete="off">🔍</label></header>
+<section class="hero"><p class="e">WELCOME TO J-MART</p><h1>Your Daily Essentials Delivered Fresh</h1><p>Groceries · Household · Better Living</p><button class="btn" onclick="document.getElementById('pl').scrollIntoView({behavior:'smooth'})">Shop Now &nbsp;→</button></section>
+<div class="wrap"><div class="cats"><h2>☷ Categories</h2><div class="cg" id="cg"></div></div>
+<div class="bar" id="pl"><h2><span id="ct">All Products</span> <small id="n"></small></h2>
+<select id="s"><option value="p">Sort by: Popularity</option><option value="a">Name: A–Z</option><option value="z">Name: Z–A</option></select></div>
+<div class="grid" id="g"></div><div id="empty" hidden>No products found.</div></div>
+<div id="ov" hidden onclick="if(event.target===this)closeAll()">
+<aside id="cp" hidden><h2>🛒 Your Cart <button class="x" onclick="closeAll()">✕</button></h2><div id="ci"></div><div id="cf"></div></aside>
+<form id="lf" hidden onsubmit="doLogin(event)"><h2>👤 Login <button type="button" class="x" onclick="closeAll()">✕</button></h2>
+<input id="un" placeholder="Name" required><input id="em" type="email" placeholder="Email" required><input id="pw" type="password" placeholder="Password" minlength="4" required><button class="btn">Login</button></form></div>
+<script src="script.js"></script></body></html>
