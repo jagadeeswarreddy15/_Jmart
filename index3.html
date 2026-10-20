@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>J-Mart | Fresh Needs, Happy Homes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top" id="home">
+    <div class="brand">
+      <span class="ico">🛒</span>
+      <div><h1>J-Mart</h1><p>Fresh Needs, Happy Homes</p></div>
+    </div>
+    <div class="nav">
+      <a href="#home"><span class="em">🏠</span>Home</a>
+      <button type="button" onclick="openCart()"><span class="em">🛒</span>Cart<span class="badge" id="cartCount">0</span></button>
+      <button type="button" onclick="openLogin()"><span class="em">👤</span>Login</button>
+    </div>
+  </div>
+
+  <label class="search">
+    <input id="q" type="search" placeholder="Search for products..." autocomplete="off" aria-label="Search for products">
+    <span>🔍</span>
+  </label>
+
+  <section class="hero">
+    <small>WELCOME TO J-MART</small>
+    <h2>Your Daily Essentials Delivered Fresh</h2>
+    <p>Groceries · Household · Better Living</p>
+    <button class="shop" type="button" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'})">Shop Now &nbsp;→</button>
+  </section>
+
+  <main class="wrap">
+    <div class="cats">
+      <h3>☷ &nbsp;Categories</h3>
+      <div class="cat-grid" id="cats"></div>
+    </div>
+
+    <div class="listhead" id="list">
+      <h2 id="title">All Products <span id="count"></span></h2>
+      <select id="sort" aria-label="Sort products">
+        <option value="pop">Sort by: Popularity</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+        <option value="az">Name: A to Z</option>
+      </select>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p id="empty" hidden>No products match your search.</p>
+  </main>
+
+  <footer>© 2026 J-Mart | Fresh Needs, Happy Homes</footer>
+
+  <div class="overlay" id="loginBox">
+    <div class="sheet">
+      <button class="x" type="button" onclick="closeAll()" aria-label="Close">✕</button>
+      <h2 id="lt">Welcome to J-Mart</h2>
+      <p class="sub">Login or create your account</p>
+      <form id="form">
+        <input id="name" placeholder="Your name" autocomplete="name" required>
+        <input id="phone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" maxlength="10" autocomplete="tel" required>
+        <button class="primary" type="submit">Continue</button>
+      </form>
+      <p class="msg" id="msg" role="status"></p>
+      <div class="switch"><span id="tt">New customer?</span> <button class="link" type="button" id="tb" onclick="toggleMode()">Sign Up</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="cartBox">
+    <div class="sheet">
+      <button class="x" type="button" onclick="closeAll()" aria-label="Close">✕</button>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <button class="primary" type="button" onclick="clearCart()">Clear cart</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
