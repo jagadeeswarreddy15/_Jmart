@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>J-Mart - Cart</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div class="top"><div class="logo"><span style="font-size:38px">🛒</span><div><b>J-Mart</b><small>Fresh Needs, Happy Homes</small></div></div><nav><a href="index.html"><span>🏠</span>Home</a><a href="index1.html"><span>🛍️</span>Shop</a></nav></div></header>
+<main class="page"><h1>🛒 Your Cart</h1><div id="ci"></div><div id="cf"></div></main>
+<script src="products.js"></script>
+<script>
+const $=i=>document.getElementById(i);
+let cart=new Map(),user=null;
+try{cart=new Map(JSON.parse(localStorage.getItem("cart")||"[]"));user=localStorage.getItem("user")}catch(e){}
+const save=()=>{try{localStorage.setItem("cart",JSON.stringify([...cart]))}catch(e){}};
+const total=()=>P.reduce((a,p)=>a+(cart.get(p.n)||0)*p.p,0);
+const count=()=>[...cart.values()].reduce((a,b)=>a+b,0);
+function draw(){
+ const L=P.filter(p=>cart.has(p.n));
+ $("ci").innerHTML=L.length?L.map(p=>`<div class="ci"><img src="${p.i}" alt=""><span>${p.n}<br><small>₹${p.p} × ${cart.get(p.n)} = ₹${p.p*cart.get(p.n)}</small></span><div class="q"><button data-m="${p.n}">−</button>${cart.get(p.n)}<button data-a="${p.n}">+</button></div><button class="rm" data-r="${p.n}">🗑</button></div>`).join(""):'<div class="muted">Your cart is empty<br><br><a href="index1.html">Go to shop →</a></div>';
+ $("cf").innerHTML=L.length?`<div class="tot"><b>Items: ${count()} · Total: ₹${total()}</b></div><button class="btn" onclick="checkout()">Place Order</button><button class="btn sec" onclick="clearCart()">Clear Cart</button>`:"";
+}
+function change(n,d){const v=(cart.get(n)||0)+d;v>0?cart.set(n,v):cart.delete(n);save();draw()}
+function clearCart(){cart.clear();save();draw()}
+function checkout(){
+ if(!user){location.href="login.html?next=cart.html";return}
+ alert("Thank you, "+user+"! Order placed for "+count()+" item(s). Total: ₹"+total()+".");clearCart();
+}
+$("ci").onclick=e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;if(d.m)change(d.m,-1);if(d.a)change(d.a,1);if(d.r){cart.delete(d.r);save();draw()}};
+draw();
+</script></body></html>
