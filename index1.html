@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>J-Mart</title>
+<style>
+:root{--g:#078a5c;--dg:#0b5d3f;--bd:#e3e8e6;--tx:#1d2b36}
+*{box-sizing:border-box}body{margin:0;font-family:Roboto,system-ui,sans-serif;color:var(--tx);background:#fff}
+header{padding:14px 16px 12px;position:sticky;top:0;background:#fff;z-index:5}
+.top{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}.logo b{font-size:28px;color:var(--g);display:block;line-height:1}.logo small{font-size:12px}
+nav{display:flex;gap:18px}nav a{text-align:center;font-size:13px;font-weight:600;color:var(--dg);position:relative;cursor:pointer}nav a span{display:block;font-size:22px}
+nav em{font-style:normal}
+#cc{position:absolute;top:-6px;right:-8px;background:#e11;color:#fff;border-radius:50%;width:19px;height:19px;font-size:11px;line-height:19px;font-style:normal}
+.search{margin-top:12px;display:flex;border:1px solid var(--bd);background:#f5f7f6;border-radius:30px;padding:0 16px}
+.search input{flex:1;border:0;background:none;height:44px;font-size:16px;outline:0}
+#go{line-height:44px;cursor:pointer}
+.hero{padding:26px 20px;background:linear-gradient(135deg,#e8f4d9,#d4ebb9)}
+.hero p.e{letter-spacing:3px;font-weight:700;color:var(--g);font-size:12px;margin:0}
+.hero h1{font-size:28px;color:var(--dg);margin:10px 0}.hero p{margin:0 0 16px;font-weight:500}
+.btn{background:var(--g);color:#fff;border:0;border-radius:12px;padding:13px 22px;font-size:16px;font-weight:700}
+</style></head><body>
+<header><div class="top"><div class="logo"><span style="font-size:38px">🛒</span><div><b>J-Mart</b><small>Fresh Needs, Happy Homes</small></div></div>
+<nav><a id="home"><span>🏠</span>Home</a><a id="cart"><span>🛒</span>Cart<i id="cc">0</i></a><a id="login"><span>👤</span><em id="lg">Login</em></a></nav></div>
+<label class="search"><input id="q" type="search" placeholder="Search for products..." autocomplete="off"><span id="go">🔍</span></label></header>
+<section class="hero"><p class="e">WELCOME TO J-MART</p><h1>Your Daily Essentials Delivered Fresh</h1><p>Groceries · Household · Better Living</p><button class="btn" id="shop">Shop Now &nbsp;→</button></section>
+<script src="script.js"></script></body></html>
