@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>J-Mart - Login</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div class="top"><div class="logo"><span style="font-size:38px">🛒</span><div><b>J-Mart</b><small>Fresh Needs, Happy Homes</small></div></div><nav><a href="index.html"><span>🏠</span>Home</a><a href="index1.html"><span>🛍️</span>Shop</a></nav></div></header>
+<main class="page"><h1>👤 Login</h1><div id="hi" class="hi" hidden></div>
+<form id="lf" onsubmit="doLogin(event)"><input id="un" placeholder="Name" required><input id="em" type="email" placeholder="Email" required><input id="pw" type="password" placeholder="Password" minlength="4" required><button class="btn">Login</button></form>
+<button id="out" class="btn sec" hidden onclick="logout()">Logout</button></main>
+<script>
+const $=i=>document.getElementById(i);
+const next=new URLSearchParams(location.search).get("next")||"index1.html";
+let user=null;try{user=localStorage.getItem("user")}catch(e){}
+function view(){
+ $("hi").hidden=$("out").hidden=!user;$("lf").hidden=!!user;
+ if(user)$("hi").textContent="Logged in as "+user;
+}
+function doLogin(e){e.preventDefault();user=$("un").value.trim();try{localStorage.setItem("user",user)}catch(x){}location.href=next}
+function logout(){user=null;try{localStorage.removeItem("user")}catch(e){}view()}
+view();
+</script></body></html>
