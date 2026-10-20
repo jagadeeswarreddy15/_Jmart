@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>J-Mart | Fresh Needs, Happy Homes</title>
+  <style>
+    :root {
+      --green: #07895a; --green-dark: #065f46; --green-soft: #e3f4ec;
+      --bg: #ffffff; --card: #ffffff; --text: #1f2a44; --muted: #6b7280; --line: #e5e7eb; --input: #f3f4f6;
+      box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --bg: #0f1a15; --card: #16241d; --text: #e8f1ec; --muted: #9db0a6; --line: #26382f; --input: #1b2c24; --green-soft: #1d3a2e; --green: #19a974; }
+    }
+    :root[data-theme="dark"] { --bg: #0f1a15; --card: #16241d; --text: #e8f1ec; --muted: #9db0a6; --line: #26382f; --input: #1b2c24; --green-soft: #1d3a2e; --green: #19a974; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Roboto, "Segoe UI", system-ui, Arial, sans-serif; }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+    body { background: var(--bg); color: var(--text); }
+    button { cursor: pointer; border: none; font-weight: 600; font-size: 1rem; }
+
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 4% 10px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand .ico { font-size: 40px; }
+    .brand h1 { color: var(--green); font-size: 2rem; line-height: 1; }
+    .brand p { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+    .nav { display: flex; gap: 18px; }
+    .nav button, .nav a { background: none; color: var(--green); text-decoration: none; font-weight: 600; font-size: .9rem; display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; padding: 4px; }
+    .nav .em { font-size: 24px; }
+    .badge { position: absolute; top: -4px; right: -2px; background: #dc2626; color: #fff; font-size: .7rem; min-width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+
+    .search { margin: 6px 4% 14px; display: flex; align-items: center; border: 1px solid var(--line); background: var(--input); border-radius: 999px; padding: 0 18px; }
+    .search input { flex: 1; border: none; background: none; color: var(--text); font-size: 1rem; padding: 14px 0; outline: none; min-width: 0; }
+    .search span { font-size: 20px; }
+
+    .hero { padding: 34px 4% 38px; background: linear-gradient(120deg, #f3f9e8, #d3eab8); color: #064e3b; }
+    .hero small { display: block; letter-spacing: .25em; font-weight: 700; font-size: .85rem; margin-bottom: 14px; color: #07895a; }
+    .hero h2 { font-size: clamp(2rem, 7vw, 3rem); line-height: 1.1; max-width: 600px; margin-bottom: 14px; }
+    .hero p { font-weight: 600; margin-bottom: 22px; }
+    .shop { background: var(--green); color: #fff; padding: 16px 28px; border-radius: 14px; font-size: 1.1rem; box-shadow: 0 6px 14px #07895a40; }
+
+    .wrap { padding: 20px 4% 10px; max-width: 1200px; margin: 0 auto; }
+    .cats { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card); margin-bottom: 26px; }
+    .cats h3 { background: var(--green); color: #fff; padding: 20px 24px; font-size: 1.3rem; }
+    .cat-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .cat { background: var(--card); color: var(--text); text-align: left; padding: 16px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .cat.active { background: var(--green-soft); color: var(--green); }
+    .cat .em { font-size: 20px; }
+
+    .listhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .listhead h2 { font-size: 1.6rem; }
+    .listhead h2 span { font-size: 1rem; color: var(--muted); font-weight: 400; margin-left: 6px; }
+    select { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: .95rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    @media (min-width: 700px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+    .card { border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; }
+    .thumb { background: #fff; border-radius: 10px; height: 170px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card h4 { font-size: 1rem; min-height: 40px; margin-bottom: 6px; }
+    .price { color: var(--green); font-weight: 700; font-size: 1.15rem; margin: auto 0 10px; }
+    .add { background: var(--green); color: #fff; border-radius: 10px; padding: 12px; }
+    #empty { text-align: center; color: var(--muted); padding: 30px 0; }
+
+    footer { margin-top: 30px; padding: 20px; background: var(--green-dark); color: #fff; text-align: center; font-size: .9rem; }
+
+    .overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: #0009; justify-content: center; align-items: flex-end; padding: 0; }
+    .sheet { background: var(--card); color: var(--text); width: 100%; max-width: 440px; max-height: 85vh; overflow-y: auto; padding: 26px 22px calc(26px + env(safe-area-inset-bottom, 0px)); border-radius: 20px 20px 0 0; position: relative; }
+    @media (min-width: 600px) { .overlay { align-items: center; padding: 15px; } .sheet { border-radius: 20px; } }
+    .sheet h2 { color: var(--green); margin-bottom: 10px; }
+    .sheet .sub { color: var(--muted); margin-bottom: 18px; }
+    .x { position: absolute; right: 14px; top: 14px; background: var(--input); color: var(--text); border-radius: 8px; padding: 8px 12px; }
+    .sheet input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line); background: var(--input); color: var(--text); border-radius: 10px; font-size: 1rem; }
+    .primary { width: 100%; background: var(--green); color: #fff; padding: 14px; border-radius: 10px; }
+    .link { background: none; color: var(--green); padding: 4px; }
+    .msg { margin-top: 12px; color: var(--green); line-height: 1.5; }
+    .switch { text-align: center; margin-top: 16px; }
+    .line { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.15rem; padding: 14px 0; }
+    :focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="top" id="home">
+    <div class="brand">
+      <span class="ico">🛒</span>
+      <div><h1>J-Mart</h1><p>Fresh Needs, Happy Homes</p></div>
+    </div>
+    <div class="nav">
+      <a href="#home"><span class="em">🏠</span>Home</a>
+      <button type="button" onclick="openCart()"><span class="em">🛒</span>Cart<span class="badge" id="cartCount">0</span></button>
+      <button type="button" onclick="openLogin()"><span class="em">👤</span>Login</button>
+    </div>
+  </div>
+
+  <label class="search">
+    <input id="q" type="search" placeholder="Search for products..." autocomplete="off" aria-label="Search for products">
+    <span>🔍</span>
+  </label>
+
+  <section class="hero">
+    <small>WELCOME TO J-MART</small>
+    <h2>Your Daily Essentials Delivered Fresh</h2>
+    <p>Groceries · Household · Better Living</p>
+    <button class="shop" type="button" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'})">Shop Now &nbsp;→</button>
+  </section>
+
+  <main class="wrap">
+    <div class="cats">
+      <h3>☷ &nbsp;Categories</h3>
+      <div class="cat-grid" id="cats"></div>
+    </div>
+
+    <div class="listhead" id="list">
+      <h2 id="title">All Products <span id="count"></span></h2>
+      <select id="sort" aria-label="Sort products">
+        <option value="pop">Sort by: Popularity</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+        <option value="az">Name: A to Z</option>
+      </select>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p id="empty" hidden>No products match your search.</p>
+  </main>
+
+  <footer>© 2026 J-Mart | Fresh Needs, Happy Homes</footer>
+
+  <div class="overlay" id="loginBox">
+    <div class="sheet">
+      <button class="x" type="button" onclick="closeAll()" aria-label="Close">✕</button>
+      <h2 id="lt">Welcome to J-Mart</h2>
+      <p class="sub">Login or create your account</p>
+      <form id="form">
+        <input id="name" placeholder="Your name" autocomplete="name" required>
+        <input id="phone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" maxlength="10" autocomplete="tel" required>
+        <button class="primary" type="submit">Continue</button>
+      </form>
+      <p class="msg" id="msg" role="status"></p>
+      <div class="switch"><span id="tt">New customer?</span> <button class="link" type="button" id="tb" onclick="toggleMode()">Sign Up</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="cartBox">
+    <div class="sheet">
+      <button class="x" type="button" onclick="closeAll()" aria-label="Close">✕</button>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <button class="primary" type="button" onclick="clearCart()">Clear cart</button>
+    </div>
+  </div>
+
+  <script>
+    // Prices are placeholders: edit the "p" value for any product.
+    const PRODUCTS = [
+  {"n": "Aashirvaad Iodized Salt", "p": 28, "c": "Sugar & Salt", "i": "images/aashirvaad_iodized_salt.png"},
+  {"n": "Ariel Complete Plus", "p": 220, "c": "Household Care", "i": "images/ariel_complete_plus.png"},
+  {"n": "Bingo Cheese Nachos", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_cheese_nachos.png"},
+  {"n": "Bingo Hashtags Spicy Masala", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_hashtags_spicy_masala.png"},
+  {"n": "Bingo Korean Style Hot Spicy", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_korean_style_hot_spicy.png"},
+  {"n": "Bingo Mad Angles", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_mad_angles.png"},
+  {"n": "Bingo Original Style Chilli", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_original_style_chilli.png"},
+  {"n": "Bingo Tedhe Medhe Masala Tadka", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_tedhe_medhe_masala_tadka.png"},
+  {"n": "Bingo Tedhe Medhe Mast Masala Tadka", "p": 30, "c": "Biscuits & Snacks", "i": "images/bingo_tedhe_medhe_mast_masala_tadka.png"},
+  {"n": "Bounty", "p": 40, "c": "Biscuits & Snacks", "i": "images/bounty.png"},
+  {"n": "Britannia Good Day Butter Cookies", "p": 30, "c": "Biscuits & Snacks", "i": "images/britannia_good_day_butter_cookies.png"},
+  {"n": "Brooke Bond 3 Roses Natural Care", "p": 110, "c": "Tea & Coffee", "i": "images/brooke_bond_3_roses_natural_care.png"},
+  {"n": "Brooke Bond Red Label", "p": 95, "c": "Tea & Coffee", "i": "images/brooke_bond_red_label.png"},
+  {"n": "Brooke Bond Taj Mahal", "p": 160, "c": "Tea & Coffee", "i": "images/brooke_bond_taj_mahal.png"},
+  {"n": "Cadbury Dairy Milk", "p": 20, "c": "Biscuits & Snacks", "i": "images/cadbury_dairy_milk.png"},
+  {"n": "Cadbury Dairy Milk Silk", "p": 85, "c": "Biscuits & Snacks", "i": "images/cadbury_dairy_milk_silk.png"},
+  {"n": "Cadbury Oreo Original", "p": 40, "c": "Biscuits & Snacks", "i": "images/cadbury_oreo_original.png"},
+  {"n": "Campa Cola", "p": 40, "c": "Beverages", "i": "images/campa_cola.png"},
+  {"n": "Cinthol Lime Soap", "p": 55, "c": "Personal Care", "i": "images/cinthol_lime_soap.png"},
+  {"n": "Closeup Everfresh Toothpaste", "p": 70, "c": "Personal Care", "i": "images/closeup_everfresh_toothpaste.png"},
+  {"n": "Coca Cola", "p": 40, "c": "Beverages", "i": "images/coca_cola.png"},
+  {"n": "Colgate MaxFresh Toothpaste", "p": 95, "c": "Personal Care", "i": "images/colgate_maxfresh_toothpaste.png"},
+  {"n": "Colgate Strong Teeth Toothpaste", "p": 60, "c": "Personal Care", "i": "images/colgate_strong_teeth_toothpaste.png"},
+  {"n": "Colgate ZigZag Charcoal Toothbrush", "p": 45, "c": "Personal Care", "i": "images/colgate_zigzag_charcoal_toothbrush.png"},
+  {"n": "Colgate ZigZag Deep Clean Toothbrush", "p": 45, "c": "Personal Care", "i": "images/colgate_zigzag_deep_clean_toothbrush.png"},
+  {"n": "Dabur Red Toothpaste", "p": 95, "c": "Personal Care", "i": "images/dabur_red_toothpaste.png"},
+  {"n": "Dark Fantasy Desserts Choco Chunks", "p": 30, "c": "Biscuits & Snacks", "i": "images/dark_fantasy_desserts_choco_chunks.png"},
+  {"n": "Dark Fantasy Desserts Choco Nut Dipped", "p": 30, "c": "Biscuits & Snacks", "i": "images/dark_fantasy_desserts_choco_nut_dipped.png"},
+  {"n": "Dark Fantasy Sandwich Creme Chocolate", "p": 30, "c": "Biscuits & Snacks", "i": "images/dark_fantasy_sandwich_creme_chocolate.png"},
+  {"n": "Dark Fantasy Sandwich Creme Vanilla", "p": 30, "c": "Biscuits & Snacks", "i": "images/dark_fantasy_sandwich_creme_vanilla.png"},
+  {"n": "Dove Cream Beauty Bar", "p": 65, "c": "Personal Care", "i": "images/dove_cream_beauty_bar.png"},
+  {"n": "Dove Intense Repair Shampoo", "p": 180, "c": "Personal Care", "i": "images/dove_intense_repair_shampoo.png"},
+  {"n": "Fogg Paradise Body Spray", "p": 199, "c": "Personal Care", "i": "images/fogg_paradise_body_spray.png"},
+  {"n": "Garlic", "p": 60, "c": "Fresh Produce", "i": "images/garlic.png"},
+  {"n": "Groundnuts", "p": 110, "c": "Rice & Grains", "i": "images/groundnuts.png"},
+  {"n": "Hauser XO Pens", "p": 50, "c": "Household Care", "i": "images/hauser_xo_pens.png"},
+  {"n": "Head & Shoulders Classic Clean", "p": 120, "c": "Personal Care", "i": "images/head_and_shoulders_classic_clean.png"},
+  {"n": "Head & Shoulders Cool Menthol", "p": 120, "c": "Personal Care", "i": "images/head_and_shoulders_cool_menthol.png"},
+  {"n": "KitKat 2 Finger", "p": 20, "c": "Biscuits & Snacks", "i": "images/kitkat_2_finger.png"},
+  {"n": "KitKat 4 Finger", "p": 45, "c": "Biscuits & Snacks", "i": "images/kitkat_4_finger.png"},
+  {"n": "Lays American Style Cream Onion", "p": 20, "c": "Biscuits & Snacks", "i": "images/lays_american_style_cream_onion.png"},
+  {"n": "Lotte Choco Pie", "p": 30, "c": "Biscuits & Snacks", "i": "images/lotte_choco_pie.png"},
+  {"n": "Minute Maid Pulpy Orange", "p": 40, "c": "Beverages", "i": "images/minute_maid_pulpy_orange.png"},
+  {"n": "Mysore Sandal Soap", "p": 40, "c": "Personal Care", "i": "images/mysore_sandal_soap.png"},
+  {"n": "Nature Power Papaya Aura Soap", "p": 55, "c": "Personal Care", "i": "images/nature_power_papaya_aura_soap.png"},
+  {"n": "Pantene Lively Clean", "p": 99, "c": "Personal Care", "i": "images/pantene_lively_clean.png"},
+  {"n": "Parle Hide and Seek Almonds", "p": 30, "c": "Biscuits & Snacks", "i": "images/parle_hide_and_seek_almonds.png"},
+  {"n": "Parle Hide and Seek Choco Chip", "p": 30, "c": "Biscuits & Snacks", "i": "images/parle_hide_and_seek_choco_chip.png"},
+  {"n": "Parrys White Label Sugar", "p": 52, "c": "Sugar & Salt", "i": "images/parrys_white_label_sugar.png"},
+  {"n": "Pears Original Glycerin Soap", "p": 55, "c": "Personal Care", "i": "images/pears_original_glycerin_soap.png"},
+  {"n": "Quaker Oats", "p": 180, "c": "Rice & Grains", "i": "images/quaker_oats.png"},
+  {"n": "Quest Hard Toothbrush", "p": 35, "c": "Personal Care", "i": "images/quest_hard_toothbrush.png"},
+  {"n": "Santoor Fresh Skin Soap", "p": 40, "c": "Personal Care", "i": "images/santoor_fresh_skin_soap.png"},
+  {"n": "Santoor Sandal Turmeric Soap", "p": 40, "c": "Personal Care", "i": "images/santoor_sandal_turmeric_soap.png"},
+  {"n": "Sensodyne Fresh Gel Toothpaste", "p": 110, "c": "Personal Care", "i": "images/sensodyne_fresh_gel_toothpaste.png"},
+  {"n": "Sensodyne Sensitive Toothbrush", "p": 99, "c": "Personal Care", "i": "images/sensodyne_sensitive_toothbrush.png"},
+  {"n": "Small Red Onions", "p": 45, "c": "Fresh Produce", "i": "images/small_red_onions.png"},
+  {"n": "Snickers", "p": 50, "c": "Biscuits & Snacks", "i": "images/snickers.png"},
+  {"n": "Sunfeast Dark Fantasy Choco Fills", "p": 30, "c": "Biscuits & Snacks", "i": "images/sunfeast_dark_fantasy_choco_fills.png"},
+  {"n": "Sunfeast Dark Fantasy Yumfills Pie", "p": 30, "c": "Biscuits & Snacks", "i": "images/sunfeast_dark_fantasy_yumfills_pie.png"},
+  {"n": "Sunsilk Stunning Black Shine", "p": 99, "c": "Personal Care", "i": "images/sunsilk_stunning_black_shine.png"},
+  {"n": "Tata Salt", "p": 28, "c": "Sugar & Salt", "i": "images/tata_salt.png"},
+  {"n": "Tata Tea Chakra Gold Elaichi", "p": 130, "c": "Tea & Coffee", "i": "images/tata_tea_chakra_gold_elaichi.png"},
+  {"n": "Tata Tea Chakra Gold Gemini", "p": 125, "c": "Tea & Coffee", "i": "images/tata_tea_chakra_gold_gemini.png"},
+  {"n": "Thums Up 750ml", "p": 45, "c": "Beverages", "i": "images/thums_up_750ml.png"},
+  {"n": "Thums Up Large Bottle", "p": 95, "c": "Beverages", "i": "images/thums_up_large_bottle.png"},
+  {"n": "Toor Dal", "p": 160, "c": "Rice & Grains", "i": "images/toor_dal.png"},
+  {"n": "Unibic Assorted Cookies", "p": 30, "c": "Biscuits & Snacks", "i": "images/unibic_assorted_cookies.png"},
+  {"n": "Unibic Butter Cookies", "p": 30, "c": "Biscuits & Snacks", "i": "images/unibic_butter_cookies.png"},
+  {"n": "Unibic Choco Chip Cookies", "p": 30, "c": "Biscuits & Snacks", "i": "images/unibic_choco_chip_cookies.png"},
+  {"n": "Unibic Fruit Nut Cookies", "p": 30, "c": "Biscuits & Snacks", "i": "images/unibic_fruit_nut_cookies.png"},
+  {"n": "India Gate Rice", "p": 120, "c": "Rice & Grains", "i": "images/india_gate_rice.svg"},
+  {"n": "Sunflower Oil", "p": 150, "c": "Cooking Oil", "i": "images/sunflower_oil.svg"},
+  {"n": "Fresh Tomatoes", "p": 30, "c": "Fresh Produce", "i": "images/fresh_tomatoes.svg"},
+  {"n": "Potato Chips", "p": 20, "c": "Biscuits & Snacks", "i": "images/potato_chips.svg"},
+  {"n": "Sprite", "p": 40, "c": "Beverages", "i": "images/sprite.svg"}
+];
+    const ICONS = {"All Products":"▦","Cooking Oil":"🛢️","Rice & Grains":"🌾","Sugar & Salt":"🧂","Flour & Spices":"🌶️","Beverages":"🥤","Tea & Coffee":"☕","Biscuits & Snacks":"🍟","Household Care":"🧽","Personal Care":"🧼","Fresh Produce":"🥬"};
+    const ORDER = ["Cooking Oil","Rice & Grains","Sugar & Salt","Flour & Spices","Beverages","Tea & Coffee","Biscuits & Snacks","Household Care","Personal Care","Fresh Produce"];
+
+    let cat = "All Products", cart = [], isSignup = false;
+    const $ = id => document.getElementById(id);
+
+    function renderCats() {
+      const present = ORDER.filter(c => PRODUCTS.some(p => p.c === c));
+      $("cats").innerHTML = "";
+      ["All Products", ...present].forEach(c => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "cat" + (c === cat ? " active" : "");
+        b.innerHTML = '<span class="em">' + ICONS[c] + '</span><span></span>';
+        b.lastChild.textContent = c;
+        b.onclick = () => { cat = c; renderCats(); render(); $("list").scrollIntoView({behavior: "smooth"}); };
+        $("cats").appendChild(b);
+      });
+    }
+
+    function render() {
+      const q = $("q").value.trim().toLowerCase();
+      let list = PRODUCTS.filter(p => (cat === "All Products" || p.c === cat) && p.n.toLowerCase().includes(q));
+      const s = $("sort").value;
+      if (s === "low") list.sort((a, b) => a.p - b.p);
+      if (s === "high") list.sort((a, b) => b.p - a.p);
+      if (s === "az") list.sort((a, b) => a.n.localeCompare(b.n));
+      $("title").firstChild.textContent = cat + " ";
+      $("count").textContent = "(" + list.length + " item" + (list.length === 1 ? "" : "s") + ")";
+      $("empty").hidden = list.length > 0;
+      $("grid").innerHTML = "";
+      list.forEach(p => {
+        const c = document.createElement("div"); c.className = "card";
+        const t = document.createElement("div"); t.className = "thumb";
+        const im = document.createElement("img"); im.src = p.i; im.alt = p.n; im.loading = "lazy"; t.appendChild(im);
+        const h = document.createElement("h4"); h.textContent = p.n;
+        const pr = document.createElement("div"); pr.className = "price"; pr.textContent = "₹" + p.p;
+        const b = document.createElement("button"); b.className = "add"; b.type = "button"; b.textContent = "Add to Cart";
+        b.onclick = () => { cart.push(p); updateCart(); b.textContent = "Added ✓"; setTimeout(() => b.textContent = "Add to Cart", 900); };
+        c.append(t, h, pr, b); $("grid").appendChild(c);
+      });
+    }
+
+    function updateCart() { $("cartCount").textContent = cart.length; }
+    function openCart() {
+      const items = {};
+      cart.forEach(p => { items[p.n] = items[p.n] || {n: p.n, p: p.p, q: 0}; items[p.n].q++; });
+      $("cartItems").innerHTML = "";
+      const rows = Object.values(items);
+      if (!rows.length) $("cartItems").innerHTML = '<p class="sub">Your cart is empty. Add some products.</p>';
+      rows.forEach(r => {
+        const d = document.createElement("div"); d.className = "line";
+        d.innerHTML = "<span></span><span></span>";
+        d.firstChild.textContent = r.n + " × " + r.q; d.lastChild.textContent = "₹" + r.p * r.q;
+        $("cartItems").appendChild(d);
+      });
+      $("cartTotal").textContent = "₹" + cart.reduce((s, p) => s + p.p, 0);
+      $("cartBox").style.display = "flex";
+    }
+    function clearCart() { cart = []; updateCart(); openCart(); }
+    function openLogin() { $("msg").textContent = ""; $("loginBox").style.display = "flex"; }
+    function closeAll() { $("loginBox").style.display = "none"; $("cartBox").style.display = "none"; }
+    function toggleMode() {
+      isSignup = !isSignup;
+      $("lt").textContent = isSignup ? "Create Your Account" : "Welcome to J-Mart";
+      $("tt").textContent = isSignup ? "Already registered?" : "New customer?";
+      $("tb").textContent = isSignup ? "Login" : "Sign Up";
+      $("msg").textContent = "";
+    }
+    $("form").addEventListener("submit", e => {
+      e.preventDefault();
+      if (!/^[0-9]{10}$/.test($("phone").value.trim())) { $("msg").textContent = "Please enter a valid 10-digit mobile number."; return; }
+      $("msg").textContent = "Hello, " + $("name").value.trim() + "! Demo " + (isSignup ? "sign up" : "login") + " completed.";
+      // Demo only; nothing is saved.
+    });
+    [$("loginBox"), $("cartBox")].forEach(o => o.addEventListener("click", e => { if (e.target === o) closeAll(); }));
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
+    $("q").addEventListener("input", () => { cat = "All Products"; renderCats(); render(); });
+    $("sort").addEventListener("change", render);
+    renderCats(); render();
+  </script>
+</body>
+</html>
