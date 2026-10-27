@@ -1,5 +1,5 @@
 const P=[
- {"n": "Aashirvaad Iodized Salt", "c": "Sugar & Salt", "p": 28, "i": "images/aashirvaad_iodized_salt.png"},
+ {"n": "Aashirvaad Iodized Salt", "c": "Sugar & Salt", "p": 28, "i": "images/aashirvaad_iodized_salt.png","o" ,10%:},
  {"n": "Ariel Complete Plus", "c": "Household Care", "p": 130, "i": "images/ariel_complete_plus.png"},
  {"n": "Bingo Cheese Nachos", "c": "Biscuits & Snacks", "p": 20, "i": "images/bingo_cheese_nachos.png"},
  {"n": "Bingo Hashtags Spicy Masala", "c": "Biscuits & Snacks", "p": 20, "i": "images/bingo_hashtags_spicy_masala.png"},
