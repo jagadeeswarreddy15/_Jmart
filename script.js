@@ -1,5 +1,5 @@
 const P=[
- {"n": "Aashirvaad Iodized Salt", "c": "Sugar & Salt", "p": 28, "i": "images/aashirvaad_iodized_salt.png","o" :"10%off"};
+ {"n": "Aashirvaad Iodized Salt", "c": "Sugar & Salt", "p": 28, "i": "images/aashirvaad_iodized_salt.png"},
  {"n": "Ariel Complete Plus", "c": "Household Care", "p": 130, "i": "images/ariel_complete_plus.png"},
  {"n": "Bingo Cheese Nachos", "c": "Biscuits & Snacks", "p": 20, "i": "images/bingo_cheese_nachos.png"},
  {"n": "Bingo Hashtags Spicy Masala", "c": "Biscuits & Snacks", "p": 20, "i": "images/bingo_hashtags_spicy_masala.png"},
@@ -75,14 +75,16 @@ let cat="All Products",cart=new Map(),user=null;
 try{cart=new Map(JSON.parse(localStorage.getItem("cart")||"[]"));user=localStorage.getItem("user")}catch(e){}
 const $=i=>document.getElementById(i);
 const save=()=>{try{localStorage.setItem("cart",JSON.stringify([...cart]));user?localStorage.setItem("user",user):localStorage.removeItem("user")}catch(e){}};
-const total=()=>P.reduce((a,p)=>a+(cart.get(p.n)||0)*p.p,0);
+const price=p=>p.o?Math.round(p.p*(100-p.o)/100):p.p;
+P.forEach(p=>p.o=10);
+const total=()=>P.reduce((a,p)=>a+(cart.get(p.n)||0)*price(p),0);
 const count=()=>[...cart.values()].reduce((a,b)=>a+b,0);
 $("cg").innerHTML=C.map(c=>`<button data-c="${c[0]}">${c[1]} ${c[0]}</button>`).join("");
 function render(){
  const q=$("q").value.trim().toLowerCase(),s=$("s").value;
  let L=P.filter(p=>(cat=="All Products"||p.c==cat)&&p.n.toLowerCase().includes(q));
  if(s=="a")L.sort((a,b)=>a.n.localeCompare(b.n));if(s=="z")L.sort((a,b)=>b.n.localeCompare(a.n));
- $("g").innerHTML=L.map(p=>{const n=cart.get(p.n)||0;return `<div class="card"><img src="${p.i}" alt="${p.n}"><h3>${p.n}</h3><div class="pr">₹${p.p}</div><button data-n="${p.n}" class="${n?'in':''}">${n?'In cart ('+n+') ✓':'Add to Cart'}</button></div>`}).join("");
+ $("g").innerHTML=L.map(p=>{const n=cart.get(p.n)||0;return `<div class="card"><img src="${p.i}" alt="${p.n}"><h3>${p.n}</h3><div class="pr">₹${price(p)}${p.o?` <s>₹${p.p}</s> <span class="off">${p.o}% off</span>`:""}</div><button data-n="${p.n}" class="${n?'in':''}">${n?'In cart ('+n+') ✓':'Add to Cart'}</button></div>`}).join("");
  $("n").textContent=`(${L.length} items)`;$("ct").textContent=cat;$("empty").hidden=L.length>0;$("cc").textContent=count();
  $("lg").textContent=user?user.split(" ")[0]:"Login";
  document.querySelectorAll("#cg button").forEach(b=>b.classList.toggle("on",b.dataset.c==cat));
@@ -93,7 +95,7 @@ function closeAll(){$("ov").hidden=true}
 function openCart(){drawCart();show("cp")}
 function drawCart(){
  const L=P.filter(p=>cart.has(p.n));
- $("ci").innerHTML=L.length?L.map(p=>`<div class="ci"><img src="${p.i}" alt=""><span>${p.n}<br><small>₹${p.p} × ${cart.get(p.n)} = ₹${p.p*cart.get(p.n)}</small></span><div class="q"><button data-m="${p.n}">−</button>${cart.get(p.n)}<button data-a="${p.n}">+</button></div><button class="rm" data-r="${p.n}">🗑</button></div>`).join(""):'<div class="muted">Your cart is empty</div>';
+ $("ci").innerHTML=L.length?L.map(p=>`<div class="ci"><img src="${p.i}" alt=""><span>${p.n}<br><small>₹${price(p)} × ${cart.get(p.n)} = ₹${price(p)*cart.get(p.n)}</small></span><div class="q"><button data-m="${p.n}">−</button>${cart.get(p.n)}<button data-a="${p.n}">+</button></div><button class="rm" data-r="${p.n}">🗑</button></div>`).join(""):'<div class="muted">Your cart is empty</div>';
  $("cf").innerHTML=L.length?`<b>Items: ${count()} · Total: ₹${total()}</b><br><br><button class="btn" onclick="checkout()">Place Order</button>`:"";
 }
 function change(n,d){const v=(cart.get(n)||0)+d;v>0?cart.set(n,v):cart.delete(n);save();drawCart();render()}
