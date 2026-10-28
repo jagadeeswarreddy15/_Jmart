@@ -1,0 +1,23 @@
+<!-- J-Mart OTP Login Modal Structure -->
+<div id="otp-modal" class="modal">
+  <div class="modal-content">
+    <h3>J-Mart Login / Sign Up</h3>
+    
+    <!-- Step 1: Phone / Email Input -->
+    <div id="step-input">
+      <label for="contact-input">Enter Mobile Number or Gmail:</label>
+      <input type="text" id="contact-input" placeholder="e.g. 9876543210 or user@gmail.com" />
+      <button onclick="sendOTP()" class="btn">Send OTP</button>
+    </div>
+
+    <!-- Step 2: OTP Verification -->
+    <div id="step-otp" style="display: none;">
+      <p id="sent-msg"></p>
+      <input type="text" id="otp-input" placeholder="Enter 4-digit OTP" maxlength="4" />
+      <button onclick="verifyOTP()" class="btn">Verify OTP</button>
+      <button onclick="resetOTPForm()" class="btn-link">Change Number/Email</button>
+    </div>
+
+    <p id="auth-status" class="status-msg"></p>
+  </div>
+</div>
